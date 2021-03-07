@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PasswordUppercaseValidator } from 'src/shared/password-uppercase.validator';
+import { PasswordLowercaseValidator } from 'src/shared/validators/password-lowercase.validator';
+import { PasswordNumbersValidator } from 'src/shared/validators/password-numbers.validator';
+import { PasswordSpecialCharactersValidator } from 'src/shared/validators/password-special-characters.validator copy';
+import { PasswordUppercaseValidator } from 'src/shared/validators/password-uppercase.validator';
 
 @Component({
   selector: 'app-signup',
@@ -27,6 +30,9 @@ export class SignupComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           PasswordUppercaseValidator,
+          PasswordLowercaseValidator,
+          PasswordNumbersValidator,
+          PasswordSpecialCharactersValidator,
         ],
       ],
       confirmPassword: ['', Validators.required],

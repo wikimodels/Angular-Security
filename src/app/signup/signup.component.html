@@ -32,11 +32,25 @@
       <mat-error *ngIf="form.get('password').errors?.required"
         >Password is required
       </mat-error>
+      <!-- password minlength validation -->
       <mat-error *ngIf="form.get('password').errors?.minlength"
         >Password must be at least 8 characters
       </mat-error>
+      <!-- password uppercase validation -->
       <mat-error *ngIf="form.get('password').errors?.passwordUppercase"
         >Password must have at least 2 uppercase letters
+      </mat-error>
+      <!-- password lowercase validation -->
+      <mat-error *ngIf="form.get('password').errors?.passwordLowercase"
+        >Password must have at least 2 lowercase letters
+      </mat-error>
+      <!-- password numbers validation -->
+      <mat-error *ngIf="form.get('password').errors?.passwordNumbers"
+        >Password must have at least 2 numbers
+      </mat-error>
+      <!-- password special characters validation -->
+      <mat-error *ngIf="form.get('password').errors?.passwordSpecialCharacters"
+        >Password must have at least 2 special characters
       </mat-error>
     </mat-form-field>
 
