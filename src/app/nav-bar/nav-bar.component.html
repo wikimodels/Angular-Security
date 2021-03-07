@@ -1,0 +1,51 @@
+<mat-toolbar color="warn">
+  <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%">
+    <div class="v-center-block-parent">
+      <img
+        style="width: 45px; height: 45px"
+        src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png"
+      />
+    </div>
+
+    <button
+      mat-icon-button
+      color="info"
+      matTooltip="Lessons"
+      matTooltipPosition="above"
+      matTooltipHideDelay="500"
+      (click)="goToLessons()"
+    >
+      <mat-icon>cast_for_education</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="info"
+      matTooltip="Signup"
+      matTooltipPosition="above"
+      matTooltipHideDelay="500"
+      (click)="signup()"
+    >
+      <mat-icon>person_outline</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="info"
+      matTooltip="Login"
+      matTooltipPosition="above"
+      matTooltipHideDelay="500"
+      (click)="login()"
+    >
+      <mat-icon>login</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="info"
+      matTooltip="Logout"
+      matTooltipPosition="above"
+      matTooltipHideDelay="500"
+      (click)="logout()"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
