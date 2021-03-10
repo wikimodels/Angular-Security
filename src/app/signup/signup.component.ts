@@ -1,9 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+import { EmailExistsAsyncValidator } from 'src/shared/validators/email-exists-async.validator';
+import { EmailPatternAsyncValidator } from 'src/shared/validators/email-pattern-async.validator';
 import { PasswordLowercaseValidator } from 'src/shared/validators/password-lowercase.validator';
 import { PasswordNumbersValidator } from 'src/shared/validators/password-numbers.validator';
 import { PasswordSpecialCharactersValidator } from 'src/shared/validators/password-special-characters.validator copy';
 import { PasswordUppercaseValidator } from 'src/shared/validators/password-uppercase.validator';
+import { UsernameAsyncValidator } from 'src/shared/validators/username-async.validator';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,16 +22,25 @@ import { PasswordUppercaseValidator } from 'src/shared/validators/password-upper
 })
 export class SignupComponent implements OnInit {
   form: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  hidePassword = true;
+  hideConfirmPassword = true;
+  constructor(private fb: FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: ['', Validators.required],
+      username: [
+        '',
+        Validators.compose([Validators.required, Validators.maxLength(4)]),
+        Validators.composeAsync([
+          UsernameAsyncValidator.createValidator(this.auth),
+        ]),
+      ],
       email: [
         '',
+        [Validators.required],
         [
-          Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+          EmailExistsAsyncValidator.createValidator(this.auth),
+          EmailPatternAsyncValidator.createValidator(),
         ],
       ],
       password: [

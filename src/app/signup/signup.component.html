@@ -4,31 +4,62 @@
     fxLayoutAlign="center center"
     style="margin-top: 100px"
   >
-    <!-- NAME -->
+    <!-- USERNAME -->
     <mat-form-field class="full-width">
       <mat-label>Name</mat-label>
-      <input type="text" matInput formControlName="name" />
-      <mat-error *ngIf="form.get('name').errors?.required"
+      <input type="text" matInput formControlName="username" />
+      <mat-spinner
+        *ngIf="form.get('username').status === 'PENDING'"
+        matSuffix
+        [diameter]="18"
+        style="float: right; margin-left: 8px"
+      ></mat-spinner>
+
+      <mat-error *ngIf="form.get('username').errors?.required"
         >Name is required
+      </mat-error>
+      <mat-error *ngIf="form.get('username').errors?.invalidUsernameAsync">
+        Username already <strong>exists</strong>
       </mat-error>
     </mat-form-field>
 
     <!-- EMAIL -->
     <mat-form-field class="full-width">
       <mat-label>Email</mat-label>
-      <input type="email" matInput formControlName="email" />
+      <input type="text" matInput formControlName="email" />
+      <mat-spinner
+        *ngIf="form.get('email').status === 'PENDING'"
+        matSuffix
+        [diameter]="18"
+        style="float: right; margin-left: 8px"
+      ></mat-spinner>
       <mat-error *ngIf="form.get('email').errors?.required"
         >Email is required
       </mat-error>
-      <mat-error *ngIf="form.get('email').errors?.pattern"
-        >Email has wrong format
+      <mat-error *ngIf="form.get('email').errors?.emailExists">
+        Email already <strong>exists</strong>
+      </mat-error>
+      <mat-error *ngIf="form.get('email').errors?.invalidEmailFormat">
+        Email has <strong>wrong format</strong>
+      </mat-error>
+      <mat-error *ngIf="form.get('email').errors?.emailExistsAsync">
+        Email already <strong>exists</strong>
       </mat-error>
     </mat-form-field>
 
     <!-- PASSWORD -->
     <mat-form-field class="full-width">
       <mat-label>Password</mat-label>
-      <input type="password" matInput formControlName="password" />
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        matInput
+        formControlName="password"
+      />
+      <mat-icon
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [svgIcon]="hidePassword ? 'small-eye' : 'small-eye-off'"
+      ></mat-icon>
       <mat-error *ngIf="form.get('password').errors?.required"
         >Password is required
       </mat-error>
@@ -57,7 +88,22 @@
     <!-- CONFIRM PASSWORD -->
     <mat-form-field class="full-width">
       <mat-label>Confirm Password</mat-label>
-      <input type="password" matInput formControlName="confirmPassword" />
+      <input
+        [type]="hideConfirmPassword ? 'password' : 'text'"
+        matInput
+        formControlName="confirmPassword"
+      />
+      <mat-icon
+        matSuffix
+        (click)="hideConfirmPassword = !hideConfirmPassword"
+        [svgIcon]="hideConfirmPassword ? 'small-eye' : 'small-eye-off'"
+      ></mat-icon>
+      <!-- <mat-icon matSuffix svgIcon="small-eye-off"></mat-icon> -->
+      <!-- <mat-icon
+        matSuffix
+        (click)="hideConfirmPassword = !hideConfirmPassword"
+        >{{ hideConfirmPassword ? "visibility_off" : "visibility" }}</mat-icon
+      > -->
       <mat-error *ngIf="form.get('confirmPassword').errors?.required"
         >Confirm Password is required
       </mat-error>
